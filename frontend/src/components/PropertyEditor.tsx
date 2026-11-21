@@ -1,8 +1,10 @@
-import React from 'react'
+// import React from 'react'
 
 const PropertyEditor = () => {
   return (
-    <div>PropertyEditor</div>
+    <div>
+      im a big doll
+    </div>
   )
 }
 
