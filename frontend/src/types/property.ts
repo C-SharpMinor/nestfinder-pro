@@ -11,4 +11,3 @@ export interface Property{
     bath:number,
 }
 
-

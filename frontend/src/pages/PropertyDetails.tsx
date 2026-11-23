@@ -12,6 +12,7 @@ import more1 from "../assets/images/Hilltop.png";
 import more2 from "../assets/images/Harmony.png";
 
 import { PropertyData } from "../components/PropertyData";
+import NotFound from "../pages/NotFound"
 
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -27,15 +28,7 @@ const PropertyDetails = () => {
 
   if (!property) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-[#F5F5F5]">
-        <h2 className="text-2xl font-manrope font-bold">Property Not Found</h2>
-        <Link
-          to="/properties"
-          className="bg-[#1A3C34] text-white px-6 py-3 rounded-[10px]"
-        >
-          Back to Properties
-        </Link>
-      </div>
+      <NotFound />
     );
   }
 
@@ -101,7 +94,7 @@ const PropertyDetails = () => {
 						{/* <p>{property.price}</p>      to be used when I have the property data from Emmanuel*/}
 						{/* <p>{property.area} */}
 						<p className="font-gentium-plus font-bold text-2xl mb-2 lg:text-4xl">
-							₦{property.price.toLocaleString("en-NG")}
+							{property.price.toLocaleString("en-NG", {style:"currency", currency:"NGN", maximumFractionDigits: 0,})}
 						</p>
 						<p className="font-gentium-plus text-sm text-right">1,500/sqft</p>
 					</section>
@@ -508,7 +501,9 @@ const PropertyDetails = () => {
 										View Property
 									</Link>
 									<h1 className="font-gentium-plus text-3xl ">
-										₦{item.price.toLocaleString("en-NG")} {/*gonna change it to price.toLocalString()  */}
+										{item.price.toLocaleString("en-NG", {
+  style: "currency",
+  currency: "NGN", maximumFractionDigits: 0} )} {/*gonna change it to price.toLocalString()  */}
 									</h1>
 								</div>
 							</div>
