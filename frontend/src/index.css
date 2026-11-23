@@ -1,1 +1,13 @@
-@import 'tailwindcss'
+@import 'tailwindcss';
+
+.font-manrope {
+  font-family: "Manrope", sans-serif;
+}
+
+.font-gentium-plus{
+    font-family: "Gentium Plus", serif;
+}
+
+.font-inter{
+    font-family: "Inter", sans-serif;
+}
