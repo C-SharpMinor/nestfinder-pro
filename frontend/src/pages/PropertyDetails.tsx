@@ -1,27 +1,56 @@
-import React from "react";
-import { useParams } from "react-router";
-import home from "../assets/images/Frame 2121454829.png";
+import React, {useEffect} from "react";
+import { Link, useParams } from "react-router";
+import home from "../assets/images/victoria-bay.png";
 import home1 from "../assets/images/Frame 2121454887.png";
 import home2 from "../assets/images/Frame 2121454888.png";
 import home3 from "../assets/images/Frame 2121454889.png";
 import home4 from "../assets/images/Frame 2121454890.png";
 import agent from "../assets/images/Ellipse 2239.png";
 
-import more from "../assets/images/Rectangle 2521 (1).png";
-import more1 from "../assets/images/Rectangle 2521 (10).png";
-import more2 from "../assets/images/Rectangle 2521 (5).png";
+import more from "../assets/images/Sunset.png";
+import more1 from "../assets/images/Hilltop.png";
+import more2 from "../assets/images/Harmony.png";
+
+import { PropertyData } from "../components/PropertyData";
 
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 const PropertyDetails = () => {
+
+  const {id} = useParams()
+  const property = PropertyData.find((item)=> item.id === Number(id))
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
+  if (!property) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-[#F5F5F5]">
+        <h2 className="text-2xl font-manrope font-bold">Property Not Found</h2>
+        <Link
+          to="/properties"
+          className="bg-[#1A3C34] text-white px-6 py-3 rounded-[10px]"
+        >
+          Back to Properties
+        </Link>
+      </div>
+    );
+  }
+
+  const relatedProperties = PropertyData.filter(
+    (item) => item.id !== property.id
+  ).slice(0, 3);
+
 	return (
 		<div className="w-full min-h-screen bg-[#F5F5F5]">
 			<div className="max-w-[398px] lg:max-w-[1200px] lg:p-2 flex flex-col m-auto ">
 				<p>PropertyDetails</p>
 				<div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:grid-rows-2 lg:h-[432px]">
 					<img
-						src={home}
+						src={property.img}
+            alt={property.title}
 						className="col-span-2 lg:h-full w-full lg:row-span-2"
 					/>
 					<img
@@ -45,7 +74,7 @@ const PropertyDetails = () => {
 				<div className="flex justify-between mt-8">
 					<section className="">
 						<p className="font-manrope text-lg mb-4 lg:text-4xl">
-							House Park And Garden
+							{property.title}
 						</p>
 						<div className="flex items-center gap-2 ">
 							<svg
@@ -63,7 +92,7 @@ const PropertyDetails = () => {
 
 							<p className="font-inter text-sm lg:text-2xl ">
 								{" "}
-								Atan Ota, Ogun Nigeria
+								{property.location}
 							</p>
 						</div>
 					</section>
@@ -72,7 +101,7 @@ const PropertyDetails = () => {
 						{/* <p>{property.price}</p>      to be used when I have the property data from Emmanuel*/}
 						{/* <p>{property.area} */}
 						<p className="font-gentium-plus font-bold text-2xl mb-2 lg:text-4xl">
-							8,000,000
+							₦{property.price.toLocaleString("en-NG")}
 						</p>
 						<p className="font-gentium-plus text-sm text-right">1,500/sqft</p>
 					</section>
@@ -107,7 +136,7 @@ const PropertyDetails = () => {
 											fill="black"
 										/>
 									</svg>
-									<p>4 Bedrooms</p>
+									<p>{property.bedroom}</p>
 								</div>
 
 								<div className="flex gap-2">
@@ -140,7 +169,7 @@ const PropertyDetails = () => {
 											fill="black"
 										/>
 									</svg>
-									<p>4 Bathrooms</p>
+									<p>{property.bath}</p>
 								</div>
 
 								<div className="flex gap-2">
@@ -301,9 +330,9 @@ const PropertyDetails = () => {
 									/>
 									<Marker position={[51.505, -0.09]}>
 										<Popup>
-											House Park and Garden
+											{property.title}
 											<br />
-											Atan Ota, Ogun, Nigeria
+											{property.location}
 										</Popup>
 									</Marker>
 								</MapContainer>
@@ -387,9 +416,9 @@ const PropertyDetails = () => {
 					/>
 					<Marker position={[51.505, -0.09]}>
 						<Popup>
-							House Park and Garden
+							{property.title}
 							<br />
-							Atan Ota, Ogun, Nigeria
+							{property.location}
 						</Popup>
 					</Marker>
 				</MapContainer>
@@ -397,14 +426,15 @@ const PropertyDetails = () => {
 				<div className="font-manrope flex flex-col gap-4 mt-19">
 					<h2 className="text-2xl">Explore More Properties</h2>
 					<div className="flex flex-col lg:flex-row gap-5">
-						<div className="bg-white relative rounded-[10px]">
-							<img src={more} />
+            {relatedProperties.map((item) => (
+						<div key={item.id} className="bg-white relative rounded-[10px]">
+							<img src={item.img} alt={item.title} />
 							<div className="bg-[#F4A261] text-lg py-3 px-6 text-white absolute right-5 top-5 rounded-[10px]">
 								<p>20% off</p>
 							</div>
 							<div className="p-5">
 								<h3 className="font-bold text-xl mb-5">
-									Sunset Ridge Residence
+									{item.title}
 								</h3>
 
 								<div className="flex gap-2 items-center mb-5">
@@ -420,7 +450,7 @@ const PropertyDetails = () => {
 											fill="#403F3F"
 										/>
 									</svg>
-									<p>Ikoyi, Lagos, Nigeria</p>
+									<p>{item.location}</p>
 								</div>
 
 								<div className="flex gap-2.5 items-center ">
@@ -437,7 +467,7 @@ const PropertyDetails = () => {
 												fill="#403F3F"
 											/>
 										</svg>
-										<p> 648 Sqm</p>
+										<p> {item.size} Sqm</p>
 									</section>
 
 									<section className="flex items-center gap-1">
@@ -453,7 +483,7 @@ const PropertyDetails = () => {
 												fill="#403F3F"
 											/>
 										</svg>
-										<p>4 Beds</p>
+										<p>{item.bedroom} Beds</p>
 									</section>
 									<section className="flex items-center gap-1">
 										<svg
@@ -469,193 +499,22 @@ const PropertyDetails = () => {
 											/>
 										</svg>
 
-										<p>3 Baths</p>
+										<p>{item.bath} Baths</p>
 									</section>
 								</div>
 
 								<div className="mt-8 flex items-center justify-between">
-									<button className="bg-[#1A3C34] cursor-pointer text-white rounded-[10px] py-3 px-6">
+									<Link to={`/properties/${item.id}`} className="bg-[#1A3C34] cursor-pointer text-white rounded-[10px] py-3 px-6">
 										View Property
-									</button>
+									</Link>
 									<h1 className="font-gentium-plus text-3xl ">
-										8,000,000 {/*gonna change it to price.toLocalString()  */}
+										₦{item.price.toLocaleString("en-NG")} {/*gonna change it to price.toLocalString()  */}
 									</h1>
 								</div>
 							</div>
 						</div>
-
-						<div className="bg-white relative rounded-[10px]">
-							<img src={more1} />
-							<div className="bg-[#F4A261] text-lg py-3 px-6 text-white absolute right-5 top-5 rounded-[10px]">
-								<p>20% off</p>
-							</div>
-							<div className="p-5">
-								<h3 className="font-bold text-xl mb-5">
-									Hilltop Luxury Estate
-								</h3>
-								<div className="flex gap-2 items-center mb-5">
-									<svg
-										width="13"
-										height="17"
-										viewBox="0 0 13 17"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M6.46875 3.375C5.85686 3.375 5.25872 3.55645 4.74995 3.89639C4.24119 4.23634 3.84466 4.71951 3.6105 5.28482C3.37634 5.85013 3.31507 6.47218 3.43445 7.07231C3.55382 7.67244 3.84847 8.22369 4.28114 8.65636C4.71381 9.08903 5.26506 9.38368 5.86519 9.50305C6.46532 9.62243 7.08737 9.56116 7.65268 9.327C8.21799 9.09284 8.70116 8.69631 9.04111 8.18754C9.38105 7.67878 9.5625 7.08064 9.5625 6.46875C9.56157 5.64852 9.23532 4.86215 8.65533 4.28217C8.07535 3.70218 7.28898 3.37593 6.46875 3.375ZM6.46875 7.875C6.19062 7.875 5.91874 7.79252 5.68748 7.638C5.45622 7.48348 5.27598 7.26386 5.16954 7.0069C5.06311 6.74994 5.03526 6.46719 5.08952 6.1944C5.14378 5.92162 5.27771 5.67105 5.47438 5.47438C5.67105 5.27771 5.92162 5.14378 6.1944 5.08952C6.46719 5.03526 6.74994 5.06311 7.0069 5.16954C7.26386 5.27598 7.48348 5.45622 7.638 5.68748C7.79252 5.91874 7.875 6.19062 7.875 6.46875C7.875 6.84171 7.72684 7.1994 7.46312 7.46312C7.1994 7.72684 6.84171 7.875 6.46875 7.875ZM6.46875 0C4.7537 0.00186115 3.10943 0.683986 1.89671 1.89671C0.683986 3.10943 0.00186115 4.7537 0 6.46875C0 11.9081 5.74031 15.9891 5.985 16.1599C6.1268 16.2591 6.29568 16.3124 6.46875 16.3124C6.64182 16.3124 6.8107 16.2591 6.9525 16.1599C8.03972 15.3587 9.03443 14.4389 9.91828 13.4177C11.8934 11.1495 12.9375 8.74477 12.9375 6.46875C12.9356 4.7537 12.2535 3.10943 11.0408 1.89671C9.82807 0.683986 8.1838 0.00186115 6.46875 0ZM8.66953 12.2843C7.99913 13.0544 7.26273 13.7644 6.46875 14.4063C5.67477 13.7644 4.93837 13.0544 4.26797 12.2843C3.09375 10.9245 1.6875 8.81086 1.6875 6.46875C1.6875 5.20068 2.19124 3.98455 3.0879 3.0879C3.98455 2.19124 5.20068 1.6875 6.46875 1.6875C7.73682 1.6875 8.95295 2.19124 9.8496 3.0879C10.7463 3.98455 11.25 5.20068 11.25 6.46875C11.25 8.81086 9.84375 10.9245 8.66953 12.2843Z"
-											fill="#403F3F"
-										/>
-									</svg>
-									<p>Asokoro, Abuja, Nigeria</p>
-								</div>
-
-								<div className="flex gap-2.5 items-center ">
-									<section className="flex items-center gap-1">
-										<svg
-											width="18"
-											height="18"
-											viewBox="0 0 18 18"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M13.275 13.275L12.45 14.1L11.925 13.5L12.75 12.75L11.25 11.25L10.5 12.075L9.975 11.55L10.8 10.725L9.375 9.3L8.55 10.125L8.025 9.6L8.85 8.775L7.35 7.35L6.525 8.175L6 7.65L6.75 6.75L5.325 5.325L4.5 6.075L3.975 5.55L4.8 4.725L3 3V15H15L13.275 13.275ZM5.25 12.75V8.4L9.6 12.75H5.25Z"
-												fill="#403F3F"
-											/>
-										</svg>
-										<p> 648 Sqm</p>
-									</section>
-
-									<section className="flex items-center gap-1">
-										<svg
-											width="18"
-											height="13"
-											viewBox="0 0 18 13"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M14.0625 2.25H1.6875V0.84375C1.6875 0.619974 1.59861 0.405362 1.44037 0.247129C1.28214 0.0888947 1.06753 0 0.84375 0C0.619974 0 0.405362 0.0888947 0.247129 0.247129C0.0888949 0.405362 0 0.619974 0 0.84375V12.0938C0 12.3175 0.0888949 12.5321 0.247129 12.6904C0.405362 12.8486 0.619974 12.9375 0.84375 12.9375C1.06753 12.9375 1.28214 12.8486 1.44037 12.6904C1.59861 12.5321 1.6875 12.3175 1.6875 12.0938V10.125H15.4688V12.0938C15.4688 12.3175 15.5576 12.5321 15.7159 12.6904C15.8741 12.8486 16.0887 12.9375 16.3125 12.9375C16.5363 12.9375 16.7509 12.8486 16.9091 12.6904C17.0674 12.5321 17.1562 12.3175 17.1562 12.0938V5.34375C17.1553 4.52352 16.8291 3.73715 16.2491 3.15717C15.6691 2.57718 14.8827 2.25093 14.0625 2.25ZM6.1875 8.4375H1.6875V3.9375H6.1875V8.4375ZM15.4688 8.4375H7.875V3.9375H14.0625C14.4355 3.9375 14.7931 4.08566 15.0569 4.34938C15.3206 4.6131 15.4688 4.97079 15.4688 5.34375V8.4375Z"
-												fill="#403F3F"
-											/>
-										</svg>
-										<p>4 Beds</p>
-									</section>
-									<section className="flex items-center gap-1">
-										<svg
-											width="18"
-											height="15"
-											viewBox="0 0 18 15"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M16.5938 5.06448H14.5758C14.5177 4.90014 14.4101 4.75782 14.2678 4.65709C14.1255 4.55637 13.9556 4.50218 13.7812 4.50198H9.28125C9.10693 4.50218 8.93695 4.55637 8.79468 4.65709C8.65241 4.75782 8.54482 4.90014 8.48672 5.06448H4.5V2.25198C4.5 2.1028 4.55926 1.95973 4.66475 1.85424C4.77024 1.74875 4.91332 1.68948 5.0625 1.68948C5.19526 1.68939 5.32427 1.7335 5.42918 1.81486C5.53408 1.89621 5.60892 2.01018 5.64187 2.13878C5.68644 2.35808 5.8163 2.5507 6.00289 2.67425C6.18947 2.7978 6.4175 2.84218 6.6368 2.79761C6.8561 2.75304 7.04871 2.62318 7.17227 2.4366C7.29582 2.25001 7.34019 2.02199 7.29563 1.80269C7.18135 1.25508 6.86851 0.769117 6.41736 0.438378C5.9662 0.107639 5.40863 -0.0444865 4.85202 0.0112971C4.2954 0.0670807 3.77911 0.326828 3.40256 0.74052C3.02601 1.15421 2.81583 1.69259 2.8125 2.25198V5.06448H0.84375C0.619974 5.06448 0.405362 5.15338 0.247129 5.31161C0.0888948 5.46985 0 5.68446 0 5.90823V8.72073C0.00145954 9.79039 0.408711 10.8196 1.13953 11.6007C1.87035 12.3818 2.8703 12.8565 3.9375 12.9289V13.7832C3.9375 14.007 4.02639 14.2216 4.18463 14.3799C4.34286 14.5381 4.55747 14.627 4.78125 14.627C5.00503 14.627 5.21964 14.5381 5.37787 14.3799C5.53611 14.2216 5.625 14.007 5.625 13.7832V12.9395H11.8125V13.7832C11.8125 14.007 11.9014 14.2216 12.0596 14.3799C12.2179 14.5381 12.4325 14.627 12.6562 14.627C12.88 14.627 13.0946 14.5381 13.2529 14.3799C13.4111 14.2216 13.5 14.007 13.5 13.7832V12.9289C14.5672 12.8565 15.5671 12.3818 16.298 11.6007C17.0288 10.8196 17.436 9.79039 17.4375 8.72073V5.90823C17.4375 5.68446 17.3486 5.46985 17.1904 5.31161C17.0321 5.15338 16.8175 5.06448 16.5938 5.06448ZM10.125 6.18948H12.9375V7.87698H10.125V6.18948ZM15.75 8.72073C15.75 9.39206 15.4833 10.0359 15.0086 10.5106C14.5339 10.9853 13.8901 11.252 13.2188 11.252H4.21875C3.54742 11.252 2.90359 10.9853 2.42889 10.5106C1.95418 10.0359 1.6875 9.39206 1.6875 8.72073V6.75198H8.4375V8.72073C8.4375 8.94451 8.52639 9.15912 8.68463 9.31735C8.84286 9.47559 9.05747 9.56448 9.28125 9.56448H13.7812C14.005 9.56448 14.2196 9.47559 14.3779 9.31735C14.5361 9.15912 14.625 8.94451 14.625 8.72073V6.75198H15.75V8.72073Z"
-												fill="#403F3F"
-											/>
-										</svg>
-
-										<p>3 Baths</p>
-									</section>
-								</div>
-								<div className="mt-8 flex items-center justify-between">
-									<button className="bg-[#1A3C34] cursor-pointer text-white rounded-[10px] py-3 px-6">
-										View Property
-									</button>
-									<h1 className="font-gentium-plus text-3xl">
-										8,000,000 {/*gonna change it to price.toLocalString()  */}
-									</h1>
-								</div>
-							</div>
-						</div>
-
-						<div className="bg-white relative rounded-[10px]">
-							<img src={more2} />
-							<div className="bg-[#F4A261] text-lg py-3 px-6 text-white absolute right-5 top-5 rounded-[10px]">
-								<p>20% off</p>
-							</div>
-
-							<div className="p-5">
-								<h3 className="font-bold text-xl mb-5">
-									Harmony Heights Apartments
-								</h3>
-
-								<div className="flex gap-2 items-center mb-5">
-									<svg
-										width="13"
-										height="17"
-										viewBox="0 0 13 17"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M6.46875 3.375C5.85686 3.375 5.25872 3.55645 4.74995 3.89639C4.24119 4.23634 3.84466 4.71951 3.6105 5.28482C3.37634 5.85013 3.31507 6.47218 3.43445 7.07231C3.55382 7.67244 3.84847 8.22369 4.28114 8.65636C4.71381 9.08903 5.26506 9.38368 5.86519 9.50305C6.46532 9.62243 7.08737 9.56116 7.65268 9.327C8.21799 9.09284 8.70116 8.69631 9.04111 8.18754C9.38105 7.67878 9.5625 7.08064 9.5625 6.46875C9.56157 5.64852 9.23532 4.86215 8.65533 4.28217C8.07535 3.70218 7.28898 3.37593 6.46875 3.375ZM6.46875 7.875C6.19062 7.875 5.91874 7.79252 5.68748 7.638C5.45622 7.48348 5.27598 7.26386 5.16954 7.0069C5.06311 6.74994 5.03526 6.46719 5.08952 6.1944C5.14378 5.92162 5.27771 5.67105 5.47438 5.47438C5.67105 5.27771 5.92162 5.14378 6.1944 5.08952C6.46719 5.03526 6.74994 5.06311 7.0069 5.16954C7.26386 5.27598 7.48348 5.45622 7.638 5.68748C7.79252 5.91874 7.875 6.19062 7.875 6.46875C7.875 6.84171 7.72684 7.1994 7.46312 7.46312C7.1994 7.72684 6.84171 7.875 6.46875 7.875ZM6.46875 0C4.7537 0.00186115 3.10943 0.683986 1.89671 1.89671C0.683986 3.10943 0.00186115 4.7537 0 6.46875C0 11.9081 5.74031 15.9891 5.985 16.1599C6.1268 16.2591 6.29568 16.3124 6.46875 16.3124C6.64182 16.3124 6.8107 16.2591 6.9525 16.1599C8.03972 15.3587 9.03443 14.4389 9.91828 13.4177C11.8934 11.1495 12.9375 8.74477 12.9375 6.46875C12.9356 4.7537 12.2535 3.10943 11.0408 1.89671C9.82807 0.683986 8.1838 0.00186115 6.46875 0ZM8.66953 12.2843C7.99913 13.0544 7.26273 13.7644 6.46875 14.4063C5.67477 13.7644 4.93837 13.0544 4.26797 12.2843C3.09375 10.9245 1.6875 8.81086 1.6875 6.46875C1.6875 5.20068 2.19124 3.98455 3.0879 3.0879C3.98455 2.19124 5.20068 1.6875 6.46875 1.6875C7.73682 1.6875 8.95295 2.19124 9.8496 3.0879C10.7463 3.98455 11.25 5.20068 11.25 6.46875C11.25 8.81086 9.84375 10.9245 8.66953 12.2843Z"
-											fill="#403F3F"
-										/>
-									</svg>
-									<p>Gwarinpa, Abuja, Nigeria</p>
-								</div>
-
-								<div className="flex gap-2.5 items-center ">
-									<section className="flex items-center gap-1">
-										<svg
-											width="18"
-											height="18"
-											viewBox="0 0 18 18"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M13.275 13.275L12.45 14.1L11.925 13.5L12.75 12.75L11.25 11.25L10.5 12.075L9.975 11.55L10.8 10.725L9.375 9.3L8.55 10.125L8.025 9.6L8.85 8.775L7.35 7.35L6.525 8.175L6 7.65L6.75 6.75L5.325 5.325L4.5 6.075L3.975 5.55L4.8 4.725L3 3V15H15L13.275 13.275ZM5.25 12.75V8.4L9.6 12.75H5.25Z"
-												fill="#403F3F"
-											/>
-										</svg>
-										<p> 648 Sqm</p>
-									</section>
-
-									<section className="flex items-center gap-1">
-										<svg
-											width="18"
-											height="13"
-											viewBox="0 0 18 13"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M14.0625 2.25H1.6875V0.84375C1.6875 0.619974 1.59861 0.405362 1.44037 0.247129C1.28214 0.0888947 1.06753 0 0.84375 0C0.619974 0 0.405362 0.0888947 0.247129 0.247129C0.0888949 0.405362 0 0.619974 0 0.84375V12.0938C0 12.3175 0.0888949 12.5321 0.247129 12.6904C0.405362 12.8486 0.619974 12.9375 0.84375 12.9375C1.06753 12.9375 1.28214 12.8486 1.44037 12.6904C1.59861 12.5321 1.6875 12.3175 1.6875 12.0938V10.125H15.4688V12.0938C15.4688 12.3175 15.5576 12.5321 15.7159 12.6904C15.8741 12.8486 16.0887 12.9375 16.3125 12.9375C16.5363 12.9375 16.7509 12.8486 16.9091 12.6904C17.0674 12.5321 17.1562 12.3175 17.1562 12.0938V5.34375C17.1553 4.52352 16.8291 3.73715 16.2491 3.15717C15.6691 2.57718 14.8827 2.25093 14.0625 2.25ZM6.1875 8.4375H1.6875V3.9375H6.1875V8.4375ZM15.4688 8.4375H7.875V3.9375H14.0625C14.4355 3.9375 14.7931 4.08566 15.0569 4.34938C15.3206 4.6131 15.4688 4.97079 15.4688 5.34375V8.4375Z"
-												fill="#403F3F"
-											/>
-										</svg>
-										<p>4 Beds</p>
-									</section>
-									<section className="flex items-center gap-1">
-										<svg
-											width="18"
-											height="15"
-											viewBox="0 0 18 15"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M16.5938 5.06448H14.5758C14.5177 4.90014 14.4101 4.75782 14.2678 4.65709C14.1255 4.55637 13.9556 4.50218 13.7812 4.50198H9.28125C9.10693 4.50218 8.93695 4.55637 8.79468 4.65709C8.65241 4.75782 8.54482 4.90014 8.48672 5.06448H4.5V2.25198C4.5 2.1028 4.55926 1.95973 4.66475 1.85424C4.77024 1.74875 4.91332 1.68948 5.0625 1.68948C5.19526 1.68939 5.32427 1.7335 5.42918 1.81486C5.53408 1.89621 5.60892 2.01018 5.64187 2.13878C5.68644 2.35808 5.8163 2.5507 6.00289 2.67425C6.18947 2.7978 6.4175 2.84218 6.6368 2.79761C6.8561 2.75304 7.04871 2.62318 7.17227 2.4366C7.29582 2.25001 7.34019 2.02199 7.29563 1.80269C7.18135 1.25508 6.86851 0.769117 6.41736 0.438378C5.9662 0.107639 5.40863 -0.0444865 4.85202 0.0112971C4.2954 0.0670807 3.77911 0.326828 3.40256 0.74052C3.02601 1.15421 2.81583 1.69259 2.8125 2.25198V5.06448H0.84375C0.619974 5.06448 0.405362 5.15338 0.247129 5.31161C0.0888948 5.46985 0 5.68446 0 5.90823V8.72073C0.00145954 9.79039 0.408711 10.8196 1.13953 11.6007C1.87035 12.3818 2.8703 12.8565 3.9375 12.9289V13.7832C3.9375 14.007 4.02639 14.2216 4.18463 14.3799C4.34286 14.5381 4.55747 14.627 4.78125 14.627C5.00503 14.627 5.21964 14.5381 5.37787 14.3799C5.53611 14.2216 5.625 14.007 5.625 13.7832V12.9395H11.8125V13.7832C11.8125 14.007 11.9014 14.2216 12.0596 14.3799C12.2179 14.5381 12.4325 14.627 12.6562 14.627C12.88 14.627 13.0946 14.5381 13.2529 14.3799C13.4111 14.2216 13.5 14.007 13.5 13.7832V12.9289C14.5672 12.8565 15.5671 12.3818 16.298 11.6007C17.0288 10.8196 17.436 9.79039 17.4375 8.72073V5.90823C17.4375 5.68446 17.3486 5.46985 17.1904 5.31161C17.0321 5.15338 16.8175 5.06448 16.5938 5.06448ZM10.125 6.18948H12.9375V7.87698H10.125V6.18948ZM15.75 8.72073C15.75 9.39206 15.4833 10.0359 15.0086 10.5106C14.5339 10.9853 13.8901 11.252 13.2188 11.252H4.21875C3.54742 11.252 2.90359 10.9853 2.42889 10.5106C1.95418 10.0359 1.6875 9.39206 1.6875 8.72073V6.75198H8.4375V8.72073C8.4375 8.94451 8.52639 9.15912 8.68463 9.31735C8.84286 9.47559 9.05747 9.56448 9.28125 9.56448H13.7812C14.005 9.56448 14.2196 9.47559 14.3779 9.31735C14.5361 9.15912 14.625 8.94451 14.625 8.72073V6.75198H15.75V8.72073Z"
-												fill="#403F3F"
-											/>
-										</svg>
-
-										<p>3 Baths</p>
-									</section>
-								</div>
-
-								<div className="mt-8 flex items-center justify-between">
-									<button className="bg-[#1A3C34] cursor-pointer text-white rounded-[10px] py-3 px-6">
-										View Property
-									</button>
-									<h1 className="font-gentium-plus text-3xl">
-										8,000,000 {/*gonna change it to price.toLocalString()  */}
-									</h1>
-								</div>
-							</div>
-						</div>
+            ))}
+            
 					</div>
 				</div>
 			</div>

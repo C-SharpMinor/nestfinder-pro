@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path='/properties' element={<Properties/>}/>
       
-        <Route path='/propertiesid' element={<PropertyDetails />}/>
+        <Route path='/properties/:id' element={<PropertyDetails />}/>
       </Routes>
     </div>
   )

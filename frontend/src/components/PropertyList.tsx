@@ -4,7 +4,7 @@ import Bed from "../assets/images/Bed.png"
 import Mid from "../assets/images/mdi_set-square (1).png"
 import Gps from "../assets/images/Vector (1).png"
 import Bath from "../assets/images/Vector (2).png"
-
+import {Link} from "react-router"
 
 
 interface PropertyProps{
@@ -38,7 +38,8 @@ const PropertyList = ({property}: PropertyProps) => {
      </div>
 
       <div className="flex justify-between items-center ">
-        <button type="button" className="bg-[#1A3C34] p-2 rounded-2xl text-white text-md">View Property</button>
+        <Link
+    to={`/properties/${property.id}`} className="bg-[#1A3C34] p-2 rounded-2xl text-white text-md cursor-pointer">View Property</Link>
       <p className="text-2xl">₦{property.price.toLocaleString("en-NG")}</p>
       </div>
       </div>
