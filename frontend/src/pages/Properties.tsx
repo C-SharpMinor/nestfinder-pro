@@ -17,6 +17,7 @@ const Properties = () => {
   const [selectedStatus, setSelectedStatus]=useState("")
   const [minPrice, setMinPrice]=useState("")
   const [maxPrice, setMaxPrice]=useState("")
+  const [sortBy, setSortBy]=useState("")
   const [appliedFilter, setAppliedFilter]=useState({
     location:"",
     type: "",
@@ -26,6 +27,7 @@ const Properties = () => {
     maxPrice:"",
   })
 
+  // Apply button
   const handleFilter =()=>{
    setAppliedFilter({
     location:selectedLocation,
@@ -36,10 +38,6 @@ const Properties = () => {
     maxPrice:maxPrice,
    })
   }
-
-
-
- 
 
   // const filteredLocation= selectedLocation === ""?PropertyData: PropertyData.filter( p =>{
   //   p.location.toLowerCase().includes(selectedLocation)
@@ -65,7 +63,7 @@ const Properties = () => {
     priceError= "Minimum Price cannot be greater than maximum Price"
   } 
 
-
+  // Filters
 
   const filtersProperties= PropertyData.filter(
     p=>{
@@ -93,7 +91,18 @@ const Properties = () => {
 
   
 
-  let visibleProperties = filtersProperties
+  let visibleProperties = [...filtersProperties].sort((a,b) =>{
+    if (sortBy === "price asc") {
+      return a.price - b.price
+    }
+    if (sortBy === "price dsc") {
+      return b.price - a.price
+    }
+    // if (sortBy === "price asc") {
+    //   return a.price - b.price
+    // }
+    return 0
+  })
 
   if (priceError !=="") {
     visibleProperties=[]
@@ -153,7 +162,7 @@ const Properties = () => {
       <option value="enugu">Enugu</option>
       <option value="gombe">Gombe</option>
       <option value="imo">Imo</option>
-      <option value="jigawara">Jigawara</option>
+      <option value="jigawa">Jigawa</option>
       <option value="kaduna">Kaduna</option>
       <option value="kano">Kano</option>
       <option value="kastina">Kastina</option>
@@ -265,12 +274,15 @@ const Properties = () => {
     <div className="flex justify-between items-center mb-2 p-4">
        <p className="text-sm">Showing {visibleProperties.length} of {PropertyData.length}</p>
 
-     <select name="default" id="default">
+     <select name="default" id="default"
+     value={sortBy}
+     onChange={e=>setSortBy(e.currentTarget.value)}
+     >
       <option value="">Sort by Default</option>
-      <option value=""></option>
-      <option value=""></option>
-      <option value=""></option>
-      <option value=""></option>
+      <option value="price asc">Price: Low to High</option>
+      <option value="price dsc">Price: High to Low</option>
+      {/* <option value=""></option>
+      <option value=""></option> */}
      </select>
     </div>
      
@@ -282,7 +294,7 @@ const Properties = () => {
      
     ):visibleProperties.length === 0 ? (
           <div>
-           <p></p>
+            
           </div>
 
     ):(
