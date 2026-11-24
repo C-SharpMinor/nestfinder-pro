@@ -1,17 +1,7 @@
-<<<<<<< HEAD
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.font-manrope {
-  font-family: "Manrope", sans-serif;
+body {
+  @apply font-sans text-text-dark bg-white antialiased;
 }
-
-.font-gentium-plus{
-    font-family: "Gentium Plus", serif;
-}
-
-.font-inter{
-    font-family: "Inter", sans-serif;
-}
-=======
-@import 'tailwindcss'
->>>>>>> property-list

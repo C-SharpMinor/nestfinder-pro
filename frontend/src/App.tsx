@@ -1,36 +1,23 @@
-import Properties from "./pages/Properties"
-<<<<<<< HEAD
-import { useState } from 'react'
-import './App.css'
-import {Routes, Route} from 'react-router'
-import PropertyDetails from './pages/PropertyDetails'
-=======
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Stats from './components/Stats';
+import FeaturedProperties from './components/FeaturedProperties';
+import WhyChooseUs from './components/WhyChooseUs';
+import Testimonials from './components/Testimonials';
+import CTA from './components/CTA';
+import Footer from './components/Footer';
 
->>>>>>> property-list
-
-function App() {
-
+export default function App() {
   return (
-<<<<<<< HEAD
-    
-    
-    
-    
-    <div>
-      <Routes>
-        <Route path='/properties' element={<Properties/>}/>
-      
-        <Route path='/properties/:id' element={<PropertyDetails />}/>
-      </Routes>
+    <div className="min-h-screen">
+      <Navbar />
+      <Hero />
+      <Stats />
+      <FeaturedProperties />
+      <WhyChooseUs />
+      <Testimonials />
+      <CTA />
+      <Footer />
     </div>
-=======
-    <>
-    
-    <Properties/>
-    
-    </>
->>>>>>> property-list
-  )
+  );
 }
-
-export default App
