@@ -3,6 +3,9 @@ import { Link } from "react-router"
 import { useState } from "react"
 import PropertyList from "../components/PropertyList"
 import { PropertyData } from "../components/PropertyData"
+import Caret from "../assets/images/CaretRight.png"
+import House from "../assets/images/house-isolated-field (1) 1.png"
+import Gps from "../assets/images/Vector (1).png"
 
 
 
@@ -97,26 +100,43 @@ const Properties = () => {
   }
 
   return (
-      <div className="bg-gray-100 max-w-md md:max-w-3xl lg:max-w-7xl p-3">
+      <div className="bg-gray-100 min-h-screen w-full  flex flex-col justify-center  items-center p-4">
+    <div className="max-w-sm flex flex-col justify-center">
+          
+    <div>
+      <section className="w-full bg-[#0A1210] flex justify-between pl-3 py-8 text-white" >
+        <div className=" flex flex-col">
+          <h1 className="text-[24px]">Property Listings</h1>
+        <p className="text-[14px]">Browse our curated collection of premium properties</p>
+        <nav className="flex justify-start items-center gap-1 text-[18px] mt-2">
+        <Link to="/">Home</Link>
+        <img src={Caret} alt="Caret-right icon" className="w-3.5 h-3.25" />
+        <Link to="/propertylist">Properties</Link>
+        </nav>
+        </div>
         
-    <div className="bg-[#0A1210] w-full md:h-104.5">
-      <section className="p-3 text-start text-white">
-        <h1 className="text-[24px] md:text-[72px]">Property Listings</h1>
-        <p className="text-[14px] md:text-[18px]">Browse our curated collection of premium properties</p>
-        <Link to="" className="text-[18px] md:text-[]">Home</Link>
-        <Link to="./propertylist" className="text-[18px]">Properties</Link>
+
+        <div className="relative top-16">
+          <img src={House} alt="" className="w-50 h-20 m"/>
+        </div>
+        
     </section>
     </div>
 
-    <section>
-      <label htmlFor="state">Location</label>
+    <section className="w-full p-5">
+      <div className="opacity-60 mb-2">
+        <div className="flex items-center gap-1 ">
+          <img src={Gps} alt="location-icon" className="w-3.2 h-4" />
+        <label htmlFor="state" className="block text-md">Location</label>
+        </div>
       <select 
       name="state" 
       id="state"
       value={selectedLocation}
       onChange={e =>{setSelectedLocation(e.currentTarget.value)}}
+      className="w-full border text-sm rounded-lg p-1 outline-0"
       >
-        <option value="">All Cities</option>
+      <option value="">All Cities</option>
       <option value="abia">Abia</option>
       <option value="adamawa">Adamawa</option>
       <option value="akwa Ibom">Akwa Ibom</option>
@@ -156,14 +176,18 @@ const Properties = () => {
       <option value="abuja">Abuja</option>
 
       </select>
+      </div>
 
-
-    <label htmlFor="types">Property Type</label>
-      <select 
+      <div className="flex items-center gap-4 opacity-60 mb-2">
+  
+        <div>
+         <label htmlFor="types">Property Type</label>
+        <select 
         name="types" 
         id="types"
         value={selectedType}
         onChange={e=>{setSelectedType(e.currentTarget.value)}}
+        className="w-full border rounded-lg outline-0 p-1"
       >
         <option value="">Property Type</option>
         <option value="villa">Villa</option>
@@ -174,11 +198,15 @@ const Properties = () => {
         <option value="event-center">Event Center</option>
         <option value="land">Land</option>
         <option value="guest-house">Guest House</option>
-      </select>
+         </select>
+   </div>
+    <div>
+      
       <label htmlFor="bedroom">No of Bedrooms</label>
       <select name="bedroom" id="bedroom"
       value={selectedBedroom}
       onChange={e=>{setSelectedBedroom(e.currentTarget.value)}}
+      className="w-full border rounded-lg outline-0 p-1"
       >
         <option value="">Bedrooms</option>
         <option value="0">0</option>
@@ -188,23 +216,32 @@ const Properties = () => {
         <option value="4">4</option>
         <option value="5">5</option>
       </select>
-      <label htmlFor="status">Listing Status</label>
+    </div>
+</div>
+      <div className="opacity-60 mb-2">
+        <label htmlFor="status" className="block">Listing Status</label>
       <select name="status" id="status"
       value={selectedStatus}
       onChange={e=>{setSelectedStatus(e.currentTarget.value)}}
+      className="w-full border rounded-lg outline-0 p-1"
       >
         <option value="">Status</option>
         <option value="sale">For Sale</option>
         <option value="rent">For Rent</option>
       </select>
-      <label htmlFor="price">Price</label>
-      <input 
+      </div>
+
+      <div className="opacity-60 mb-4">
+        <label htmlFor="price" className="block">Price</label>
+      <div className="flex items-center gap-2">
+        <input 
       type="number" 
       id="minprice" 
       aria-label="Minimum Price"
       value={minPrice}
       placeholder="min"
       onChange={e=> {setMinPrice(e.currentTarget.value)}}
+      className="w-full border rounded-lg outline-0 p-1"
       />
 
       <input 
@@ -214,15 +251,28 @@ const Properties = () => {
       value={maxPrice}
       placeholder="max"
       onChange={e=>{setMaxPrice(e.currentTarget.value)}}
+      className="w-full border rounded-lg outline-0 p-1"
       />
       {priceError && <p>{priceError}</p>}
+      </div>
 
+      </div>
       <div>
-        <button type="button" onClick={handleFilter}>Apply</button>
+        <button type="button" onClick={handleFilter} className="w-full bg-[#1A3C34] hover:bg-[#1a3d2e] hover:cursor-pointer p-1 rounded-lg">Apply</button>
       </div>
      </section> 
 
-     <p>Showing {visibleProperties.length} of {PropertyData.length}</p>
+    <div className="flex justify-between items-center mb-2 p-4">
+       <p className="text-sm">Showing {visibleProperties.length} of {PropertyData.length}</p>
+
+     <select name="default" id="default">
+      <option value="">Sort by Default</option>
+      <option value=""></option>
+      <option value=""></option>
+      <option value=""></option>
+      <option value=""></option>
+     </select>
+    </div>
      
      
       {priceError !== "" ? (
@@ -236,7 +286,7 @@ const Properties = () => {
           </div>
 
     ):(
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1">
           
           {visibleProperties.map(i =>{
        return <PropertyList
@@ -246,6 +296,7 @@ const Properties = () => {
       </div>)
 
     }
+    </div>
     </div>
 
    

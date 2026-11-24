@@ -13,9 +13,9 @@ interface PropertyProps{
 
 const PropertyList = ({property}: PropertyProps) => {
   return (
-    <section className="bg-[#fff] m-2 rounded-2xl">
-      <img src={property.img} alt={property.title} className="w-full h-[322px] mb-5 object-cover" />
-      <div className="h-[200px] p-3 ">
+    <section className="bg-[#fff] m-2 rounded-lg overflow-hidden">
+      <img src={property.img} alt={property.title} className="w-full h-80.5 mb-5 object-cover" />
+      <div className="h-50 p-3 ">
             <h2 className="font-bold text-xl leading-1 mb-5">{property.title}</h2>
           <div className="flex justify-start items-center gap-2 mb-5">
             <img src={Gps} alt="location-icon" />
@@ -38,7 +38,7 @@ const PropertyList = ({property}: PropertyProps) => {
      </div>
 
       <div className="flex justify-between items-center ">
-        <button type="button" className="bg-[#1A3C34] p-2 rounded-2xl text-white text-md">View Property</button>
+        <button type="button" className="bg-[#1A3C34] p-2 rounded-lg text-white text-md">View Property</button>
       <p className="text-2xl">₦{property.price.toLocaleString("en-NG")}</p>
       </div>
       </div>
