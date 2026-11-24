@@ -91,6 +91,24 @@ const Properties = () => {
 		visibleProperties = [];
 	}
 
+
+  const handleResetFilters= ()=>{
+    setSelectedLocation("");
+	setSelectedType("");
+	setSelectedBedroom("");
+	setSelectedStatus("");
+	setMinPrice("");
+	setMaxPrice("");
+	setAppliedFilter({location: "",
+		type: "",
+		bedroom: "",
+		status: "",
+		minPrice: "",
+		maxPrice: "",
+	});
+  }
+
+
 	return (
 		<div className="bg-gray-100 max-w-md md:max-w-3xl lg:max-w-7xl p-3">
 			<div className="bg-[#0A1210] w-full md:h-[418px]">
@@ -177,6 +195,7 @@ const Properties = () => {
 					<option value="land">Land</option>
 					<option value="guest-house">Guest House</option>
 				</select>
+
 				<label htmlFor="bedroom">No of Bedrooms</label>
 				<select
 					name="bedroom"
@@ -248,7 +267,7 @@ const Properties = () => {
 				</div>
 			) : visibleProperties.length === 0 ? (
         // Added this for if no properties matched the filter, for any reason other than an invalid price
-				<NotFound />
+				<NotFound onReset={handleResetFilters} />
 			) : (
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 					{visibleProperties.map((i) => {
