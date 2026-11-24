@@ -99,7 +99,7 @@ const Properties = () => {
   return (
       <div className="bg-gray-100 max-w-md md:max-w-3xl lg:max-w-7xl p-3">
         
-    <div className="bg-[#0A1210] w-full md:h-[418px]">
+    <div className="bg-[#0A1210] w-full md:h-104.5">
       <section className="p-3 text-start text-white">
         <h1 className="text-[24px] md:text-[72px]">Property Listings</h1>
         <p className="text-[14px] md:text-[18px]">Browse our curated collection of premium properties</p>

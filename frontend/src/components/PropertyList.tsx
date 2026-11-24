@@ -24,7 +24,7 @@ const PropertyList = ({property}: PropertyProps) => {
      
           <div className="flex justify-start items-center gap-4 text-[14px] mb-5">
             <div className="flex justify-start items-center gap-2">
-              <img src={Mid} alt="mid-set-square-icon" className="w-[17px] h-[12px]" />
+              <img src={Mid} alt="mid-set-square-icon" className="w-4.25 h-3" />
               <p >{property.size} Sqm</p>
             </div>
             <div className="flex justify-start items-center gap-2">
