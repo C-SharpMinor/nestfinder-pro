@@ -6,12 +6,6 @@ import { PropertyData } from "../components/PropertyData"
 import Caret from "../assets/images/CaretRight.png"
 import House from "../assets/images/house-isolated-field (1) 1.png"
 import Gps from "../assets/images/Vector (1).png"
-
-
-import { Link } from "react-router";
-import { useState } from "react";
-import PropertyList from "../components/PropertyList";
-import { PropertyData } from "../components/PropertyData";
 import NotFound from "./NotFound";
 
 const Properties = () => {
@@ -286,9 +280,7 @@ const Properties = () => {
       </div>
      
     ):visibleProperties.length === 0 ? (
-          <div>
-           <p></p>
-          </div>
+        <NotFound/>
 
     ):(
         <div className="grid grid-cols-1">
@@ -305,11 +297,7 @@ const Properties = () => {
     </div>
 
    
-     
     
-    
-
-
   )
 }
 
