@@ -1,12 +1,17 @@
 import Properties from "./pages/Properties"
+<<<<<<< HEAD
 import { useState } from 'react'
 import './App.css'
 import {Routes, Route} from 'react-router'
 import PropertyDetails from './pages/PropertyDetails'
+=======
+
+>>>>>>> property-list
 
 function App() {
 
   return (
+<<<<<<< HEAD
     
     
     
@@ -18,6 +23,13 @@ function App() {
         <Route path='/properties/:id' element={<PropertyDetails />}/>
       </Routes>
     </div>
+=======
+    <>
+    
+    <Properties/>
+    
+    </>
+>>>>>>> property-list
   )
 }
 

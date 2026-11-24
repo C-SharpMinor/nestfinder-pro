@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useEffect} from "react";
 import { Link, useParams } from "react-router";
 import home from "../assets/images/victoria-bay.png";
@@ -16,6 +17,10 @@ import NotFound from "../pages/NotFound"
 
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+=======
+// import React from 'react'
+
+>>>>>>> property-list
 
 const PropertyDetails = () => {
 

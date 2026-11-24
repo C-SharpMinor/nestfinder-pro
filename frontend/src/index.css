@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import 'tailwindcss';
 
 .font-manrope {
@@ -11,3 +12,6 @@
 .font-inter{
     font-family: "Inter", sans-serif;
 }
+=======
+@import 'tailwindcss'
+>>>>>>> property-list
