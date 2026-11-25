@@ -1,16 +1,16 @@
 // <<<<<<< HEAD
-import React, {useEffect} from "react";
+import  {useEffect} from "react";
 import { Link, useParams } from "react-router";
-import home from "../assets/images/victoria-bay.png";
+// import home from "../assets/images/victoria-bay.png";
 import home1 from "../assets/images/Frame 2121454887.png";
 import home2 from "../assets/images/Frame 2121454888.png";
 import home3 from "../assets/images/Frame 2121454889.png";
 import home4 from "../assets/images/Frame 2121454890.png";
 import agent from "../assets/images/Ellipse 2239.png";
 
-import more from "../assets/images/Sunset.png";
-import more1 from "../assets/images/Hilltop.png";
-import more2 from "../assets/images/Harmony.png";
+// import more from "../assets/images/Sunset.png";
+// import more1 from "../assets/images/Hilltop.png";
+// import more2 from "../assets/images/Harmony.png";
 
 import { PropertyData } from "../components/PropertyData";
 import NotFound from "../pages/NotFound"
@@ -43,7 +43,7 @@ const PropertyDetails = () => {
 
 	return (
 		<div className="w-full min-h-screen bg-[#F5F5F5]">
-			<div className="max-w-[398px] lg:max-w-[1200px] lg:p-2 flex flex-col m-auto ">
+			<div className="max-w-99.5 lg:max-w-300 lg:p-2 flex flex-col m-auto ">
 				<p>PropertyDetails</p>
 				<div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:grid-rows-2 lg:h-[432px]">
 					<img
