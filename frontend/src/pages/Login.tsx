@@ -126,7 +126,7 @@ function Login() {
         {/* Sign up */}
         <div className="flex justify-center items-center lg:flex gap-1 mt-6.5">
           <span className="text-center text-sm text-[#454444]">
-          Not registered yet?{" "}
+          Not registered yet?
           </span>
           <Link 
             to="/sign-up"
