@@ -218,9 +218,9 @@ const Properties = () => {
          </select>
    </div>
     <div className="flex-1 flex flex-col justify-end min-w-0">
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 ">
         <img src={Bed} alt="bed-icon" />
-      <label htmlFor="bedroom" className="block text-md leading-tight mb-1 ">No of Bedrooms</label>
+      <label htmlFor="bedroom" className="text-sm leading-tight mb-1 ">No of Bedrooms</label>
       </div>
       <select name="bedroom" id="bedroom"
       value={selectedBedroom}
