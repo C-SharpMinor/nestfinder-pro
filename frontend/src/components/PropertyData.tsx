@@ -25,7 +25,8 @@ export const PropertyData: Property[]=[{
         bath:3,
         type: "Apartment",
         status: "rent",
-        price: 8000000
+        price: 8000000,
+        discount: "20% off",
     },
     {
         id:2,
@@ -37,7 +38,8 @@ export const PropertyData: Property[]=[{
         bath:3,
          type: "villa",
         status: "sale",
-        price: 8000000
+        price: 8000000,
+        discount: "20% off",
     },
     {
         id:3,
@@ -49,7 +51,9 @@ export const PropertyData: Property[]=[{
         bath:2,
          type: "Apartment",
         status: "rent",
-        price: 8000000
+        price: 8000000,
+        discount: "20% off",
+
     },
      {
         id:4,
@@ -61,7 +65,8 @@ export const PropertyData: Property[]=[{
         bath:3,
          type: "duplex",
         status: "sale",
-        price: 8000000
+        price: 8000000,
+        discount: "20% off",
     },
     {
         id:5,
@@ -73,7 +78,8 @@ export const PropertyData: Property[]=[{
         bath:1,
          type: "Apartment",
         status: "rent",
-        price: 8000000
+        price: 8000000,
+        discount: "20% off",
     },
     {
         id:6,
@@ -85,7 +91,8 @@ export const PropertyData: Property[]=[{
         bath:3,
          type: "villa",
         status: "sale",
-        price: 8000000
+        price: 8000000,
+        discount: "20% off",
     },
     {
         id:7,

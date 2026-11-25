@@ -1,9 +1,11 @@
 import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined } from 'react-icons/fa';
 import { useState } from 'react';
-import type { FeaturedProperty } from '../types/featured';
+import type { Property } from '../types/property';
+import {Link} from 'react-router'
+
 
 interface PropertyCardProps {
-  property: FeaturedProperty;
+  property: Property;
 }
 
 export default function PropertyCard({ property }: PropertyCardProps) {
@@ -17,18 +19,13 @@ export default function PropertyCard({ property }: PropertyCardProps) {
   }}
 >
       <div className="relative">
-        <img src={property.image} alt={property.title} className="w-full h-56 object-cover" />
+        <img src={property.img} alt={property.title} className="w-full h-56 object-cover" />
         {property.discount && (
           <span className="absolute top-3 right-3 bg-accent text-white text-xs font-semibold px-3 py-1 rounded-full">
             {property.discount}
           </span>
         )}
-        <button
-          onClick={() => setWishlisted(!wishlisted)}
-          className={`absolute top-3 left-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-lg ${wishlisted ? 'text-red-500' : 'text-gray-500'}`}
-        >
-          ♥
-        </button>
+        
       </div>
 
       <div className="p-5">
@@ -49,15 +46,15 @@ export default function PropertyCard({ property }: PropertyCardProps) {
         </p>
 
         <div className="flex items-center gap-4 text-xs text-text-muted mb-5">
-          <span className="flex items-center gap-1"><FaRulerCombined /> {property.sqm} Sqm</span>
-          <span className="flex items-center gap-1"><FaBed /> {property.beds} Beds</span>
-          <span className="flex items-center gap-1"><FaBath /> {property.baths} Baths</span>
+          <span className="flex items-center gap-1"><FaRulerCombined /> {property.size} Sqm</span>
+          <span className="flex items-center gap-1"><FaBed /> {property.bedroom} Beds</span>
+          <span className="flex items-center gap-1"><FaBath /> {property.bath} Baths</span>
         </div>
 
         <div className="flex items-center justify-between">
-          <a href="#" className="bg-primary hover:bg-primary-light text-white text-sm px-4 py-2 rounded-lg font-medium transition">
+          <Link to={`/properties/${property.id}`} className="bg-primary hover:bg-primary-light text-white text-sm px-4 py-2 rounded-lg font-medium transition">
             View Property
-          </a>
+          </Link>
           <p
             style={{
               fontFamily: '"Gentium Plus", serif',
@@ -67,7 +64,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
               letterSpacing: '0%',
             }}
           >
-            {property.price}
+            ₦{property.price.toLocaleString("en-NG")}
           </p>
         </div>
       </div>

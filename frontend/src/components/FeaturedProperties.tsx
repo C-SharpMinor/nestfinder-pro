@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import PropertyCard from '../components/PropertyCard';
-import { properties } from '../data/properties';
+import { PropertyData } from '../components/PropertyData';
+import {Link} from 'react-router'
 
 export default function FeaturedProperties() {
   const [search, setSearch] = useState('');
 
-  const filtered = properties.filter(p =>
+  const filtered = PropertyData.filter(p =>
     p.title.toLowerCase().includes(search.toLowerCase()) ||
     p.location.toLowerCase().includes(search.toLowerCase())
   );
@@ -37,9 +38,9 @@ export default function FeaturedProperties() {
         </div>
 
         <div className="text-center mt-12">
-          <a href="#" className="inline-block bg-primary hover:bg-primary-light text-white px-8 py-3 rounded-full font-semibold transition">
+          <Link to="/properties" className="inline-block bg-primary hover:bg-primary-light text-white px-8 py-3 rounded-full font-semibold transition">
             View All Properties
-          </a>
+          </Link>
         </div>
       </div>
     </section>

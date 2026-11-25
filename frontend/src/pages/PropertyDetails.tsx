@@ -44,7 +44,6 @@ const PropertyDetails = () => {
 	return (
 		<div className="w-full min-h-screen bg-[#F5F5F5]">
 			<div className="max-w-99.5 lg:max-w-300 lg:p-2 flex flex-col m-auto ">
-				<p>PropertyDetails</p>
 				<div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:grid-rows-2 lg:h-[432px]">
 					<img
 						src={property.img}

@@ -9,6 +9,7 @@ export interface Property{
     size:number,
     bedroom:number,
     bath:number,
+    discount?: string
 }
 
 
