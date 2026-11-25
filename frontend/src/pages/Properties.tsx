@@ -11,8 +11,9 @@ import Bed from "../assets/images/Bed.png"
 import Hou from '../assets/images/Vector (3).png'
 import Status from "../assets/images/Vector (4).png"
 import Naira from "../assets/images/Naira.png"
+import Square from "../assets/images/SquaresFour.png"
 
-
+const ITEMS_PER_PAGE = 12
 
 const Properties = () => {
     
@@ -23,6 +24,7 @@ const Properties = () => {
   const [minPrice, setMinPrice]=useState("")
   const [maxPrice, setMaxPrice]=useState("")
   const [sortBy, setSortBy]=useState("")
+  const [currentPage, setCurrentPage]=useState(1)
   const [appliedFilter, setAppliedFilter]=useState({
     location:"",
     type: "",
@@ -42,6 +44,7 @@ const Properties = () => {
     minPrice:minPrice,
     maxPrice:maxPrice,
    })
+   setCurrentPage(1)
   }
 
   // const filteredLocation= selectedLocation === ""?PropertyData: PropertyData.filter( p =>{
@@ -112,6 +115,11 @@ const Properties = () => {
   if (priceError !=="") {
     visibleProperties=[]
   }
+
+  const totalPages = Math.max(1, Math.ceil(visibleProperties.length / ITEMS_PER_PAGE))
+  const safeCurrentPage = Math.min(currentPage, totalPages)
+  const startIndex = (safeCurrentPage - 1) * ITEMS_PER_PAGE
+  const paginatedProperties = visibleProperties.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
   return (
       <div className="bg-gray-100 min-h-screen w-full  flex flex-col justify-center  items-center p-4 lg:p-1">
@@ -293,11 +301,14 @@ const Properties = () => {
         }</p>
         
     <div className="flex justify-between items-center mb-2 p-4">
-       <p className="text-sm md:text-lg">Showing {visibleProperties.length} of {PropertyData.length}</p>
+       <p className="text-sm md:text-lg">
+         Showing {startIndex + 1}–{Math.min(startIndex + ITEMS_PER_PAGE, visibleProperties.length)} of {visibleProperties.length}
+       </p>
 
-     <select name="default" id="default"
+    <div className="flex items-center gap-2">
+       <select name="default" id="default"
      value={sortBy}
-     onChange={e=>setSortBy(e.currentTarget.value)}
+     onChange={e=>{setSortBy(e.currentTarget.value); setCurrentPage(1)}}
      className="border rounded-lg outline-0 p-1"
      >
       <option value="">Sort by Default</option>
@@ -306,6 +317,10 @@ const Properties = () => {
       {/* <option value=""></option>
       <option value=""></option> */}
      </select>
+    <div className="border rounded-xl p-2">
+      <img src={Square} alt="square-icon" />
+    </div>
+    </div>
     </div>
      
      
@@ -314,19 +329,44 @@ const Properties = () => {
         <p>Please input a valid price range for properties to be shown.</p>
       </div>
      
-    ):visibleProperties.length === 0 ? (
+    ):paginatedProperties.length === 0 ? (
         <NotFound/>
 
     ):(
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          
-          {visibleProperties.map(i =>{
-       return <PropertyList
-        key={i.id}
-        property={i}/>
-      })
-      }
-      </div>)
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {paginatedProperties.map(i =>{
+              return <PropertyList
+                key={i.id}
+                property={i}/>
+            })}
+          </div>
+
+          <div className="flex justify-center items-center gap-3 p-4">
+            <button
+              type="button"
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={safeCurrentPage === 1}
+              className="px-4 py-2 rounded-lg border bg-white text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 cursor-pointer"
+            >
+              Previous
+            </button>
+
+            <span className="text-sm md:text-base">
+              Page {safeCurrentPage} of {totalPages}
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={safeCurrentPage === totalPages}
+              className="px-4 py-2 rounded-lg border bg-[#1A3C34] text-white text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#1a3d2e] cursor-pointer"
+            >
+              Next
+            </button>
+          </div>
+        </>
+      )
 
     }
     </div>
@@ -338,33 +378,3 @@ const Properties = () => {
 }
 
 export default Properties
-
-
-// **Pagination** is simply splitting a large list of items into smaller "pages" so you show a few items at a time instead of dumping all of them onto the screen at once.
-
-// ### A Daily Life Example: Reading a Physical Book
-
-// Imagine you have a book with **60 pages** of recipes, and you're sitting at a table:
-
-// * Instead of spreading all **60 pages** across the floor at the same time (which would be overwhelming and slow to scan), you read **6 pages per sitting** (`itemsPerPage = 6`).
-// * **Page 1** shows recipes **1–6**.
-// * Clicking **Next** flips to **Page 2**, showing recipes **7–12**.
-// * Clicking **Previous** flips back to **Page 1**.
-// * And if you filter down to *"only chocolate desserts"* and there are only **4** of them, you only need **1 page**—you don't need **10 pages** anymore.
-
-// ### How That Maps to Your `Properties.tsx` Code
-
-// In your `Properties.tsx` component, it works the exact same way:
-
-// 1. **`visibleProperties` is your full stack of matching cards** after filtering and sorting.
-// 2. **`itemsPerPage = 6` is how many cards fit on one page** (like 6 pages per sitting).
-// 3. **`currentPage` is the page number you're currently looking at** (starts at `1`).
-// 4. **`.slice(startIndex, startIndex + itemsPerPage)` pulls just that page's cards**—so if `currentPage` is `2` and `itemsPerPage` is `6`, it grabs items at index `6` through `11` (the 7th through 12th properties) instead of rendering every single one at once.
-// 5. **Resetting to page `1` on Apply or Sort:** Just like starting a fresh topic search in a book, when a user clicks **Apply** or changes **Sort by**, jumping back to **Page 1** prevents them from landing on "Page 3 of 1" when the total number of results shrinks.
-
-// ### Why People Use It in Web Apps
-
-// * **Cleaner screen:** Users don't have to scroll forever on mobile or desktop.
-// * **Better performance:** Rendering 6–12 cards at a time is lighter on the browser than rendering hundreds of cards with images at once.
-
-// How does that book analogy feel—does the `.slice(...)` part in `Properties.tsx` make more sense now?
