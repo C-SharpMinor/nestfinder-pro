@@ -288,6 +288,9 @@ const Properties = () => {
       </div>
      </section> 
 
+        <p>{appliedFilter.status==="sale"?"Real Estate & Homes For Sale":appliedFilter.status==="rent"?"Real Estate & Homes For Rent":""
+        }</p>
+        
     <div className="flex justify-between items-center mb-2 p-4">
        <p className="text-sm md:text-lg">Showing {visibleProperties.length} of {PropertyData.length}</p>
 
