@@ -1,3 +1,8 @@
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import ResetPassword from './pages/ResetPassword'
+import ForgotPassword from './pages/ForgotPassword'
+
 import Properties from "./pages/Properties"
 import './App.css'
 import {Routes, Route} from 'react-router'
@@ -6,17 +11,20 @@ import PropertyDetails from './pages/PropertyDetails'
 function App() {
 
   return (
-    
-    
-    
-    
-    <div>
-      <Routes>
-        <Route path='/properties' element={<Properties/>}/>
+    <>
+    <Routes>
+      <Route path='/login' element={<Login />} />
+            <Route path='/sign-up' element={<SignUp />} />
+      <Route path='/reset-password' element={<ResetPassword />} />
+      <Route path='/forgot-password' element={<ForgotPassword />} />
+    <Route path='/properties' element={<Properties/>}/>
+  
+    <Route path='/properties/:id' element={<PropertyDetails />}/>
+
+    </Routes>
       
-        <Route path='/properties/:id' element={<PropertyDetails />}/>
-      </Routes>
-    </div>
+    </>
+
   )
 }
 
