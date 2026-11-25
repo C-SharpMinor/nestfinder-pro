@@ -8,9 +8,6 @@ function App() {
 
   return (
     
-    
-    
-    
     <div>
       <Routes>
         <Route path='/properties' element={<Properties/>}/>
