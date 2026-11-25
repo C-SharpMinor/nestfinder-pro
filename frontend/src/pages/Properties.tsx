@@ -342,7 +342,7 @@ const Properties = () => {
             })}
           </div>
 
-          <div className="flex justify-center items-center gap-3 p-4">
+          <div className="flex justify-between items-center  p-4">
             <button
               type="button"
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -352,8 +352,8 @@ const Properties = () => {
               Previous
             </button>
 
-            <span className="text-sm md:text-base">
-              Page {safeCurrentPage} of {totalPages}
+            <span className="text-sm md:text-base flex items-center gap-1">
+              <div className="border px-2 rounded-sm hover:bg-[#1a3d2e]"> {safeCurrentPage} </div> <div className="border px-2 rounded-sm hover:bg-[#1a3d2e]">{totalPages}</div>
             </span>
 
             <button
