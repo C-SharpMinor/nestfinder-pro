@@ -155,7 +155,7 @@ const Properties = () => {
       <option value="jigawara">Jigawara</option>
       <option value="kaduna">Kaduna</option>
       <option value="kano">Kano</option>
-      <option value="kastina">Kastina</option>
+      <option value="katsina">Katsina</option>
       <option value="kebbi">Kebbi</option>
       <option value="kogi">Kogi</option>
       <option value="kwara">Kwara</option>
