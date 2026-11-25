@@ -11,7 +11,4 @@ export interface Property{
     bath:number,
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> property-list

@@ -1,16 +1,16 @@
 // <<<<<<< HEAD
 import React, {useEffect} from "react";
 import { Link, useParams } from "react-router";
-import home from "../assets/images/victoria-bay.png";
+// import home from "../assets/images/victoria-bay.png";
 import home1 from "../assets/images/Frame 2121454887.png";
 import home2 from "../assets/images/Frame 2121454888.png";
 import home3 from "../assets/images/Frame 2121454889.png";
 import home4 from "../assets/images/Frame 2121454890.png";
 import agent from "../assets/images/Ellipse 2239.png";
 
-import more from "../assets/images/Sunset.png";
-import more1 from "../assets/images/Hilltop.png";
-import more2 from "../assets/images/Harmony.png";
+// import more from "../assets/images/Sunset.png";
+// import more1 from "../assets/images/Hilltop.png";
+// import more2 from "../assets/images/Harmony.png";
 
 import { PropertyData } from "../components/PropertyData";
 import NotFound from "../pages/NotFound"
