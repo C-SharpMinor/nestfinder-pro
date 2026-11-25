@@ -5,14 +5,26 @@ import ForgotPassword from './pages/ForgotPassword'
 
 import Properties from "./pages/Properties"
 import './App.css'
-import {Routes, Route} from 'react-router'
+import {Routes, Route, useLocation} from 'react-router'
 import PropertyDetails from './pages/PropertyDetails'
+import Home from './pages/Home'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+
 
 function App() {
 
+const location = useLocation()
+
+// Pages that should NOT show Navbar and Footer
+  const hideLayout = ['/login', '/sign-up', '/forgot-password', '/reset-password'].includes(location.pathname)
+
   return (
     <>
+{!hideLayout && <Navbar />}
+
     <Routes>
+      <Route path='/' element={<Home/>}/>
       <Route path='/login' element={<Login />} />
             <Route path='/sign-up' element={<SignUp />} />
       <Route path='/reset-password' element={<ResetPassword />} />
@@ -22,6 +34,8 @@ function App() {
     <Route path='/properties/:id' element={<PropertyDetails />}/>
 
     </Routes>
+    {!hideLayout && <Footer />}
+    
       
     </>
 
