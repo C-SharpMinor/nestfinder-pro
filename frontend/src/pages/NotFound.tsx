@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { Link } from "react-router";
 import notFound from "../assets/images/NotFound.png";
@@ -42,3 +43,5 @@ const NotFound = ({ onReset }: NotFoundProps) => {
 };
 
 export default NotFound;
+=======
+>>>>>>> property-list
